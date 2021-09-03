@@ -1,3 +1,4 @@
+import 'package:fiction_task/ui/screens/add_product_screen.dart';
 import 'package:fiction_task/ui/screens/cart_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -53,7 +54,12 @@ class _ProductsScreenState extends State<ProductsScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (ctx) => AddProductScreen(),
+          ),
+        ),
         child: Icon(
           Icons.add,
         ),
