@@ -17,6 +17,7 @@ class AddProductScreen extends StatefulWidget {
 
 class _AddProductScreenState extends State<AddProductScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey();
+  AppBar _appbar = AppBar();
   bool _isLoading = true;
   bool _autoValidate = false;
   ProductModel _product = ProductModel();
@@ -73,6 +74,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
           children: <Widget>[
             SizedBox(height: 24.0),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 RaisedButton(
                   color: Theme.of(context).primaryColor,
@@ -103,6 +105,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -112,8 +115,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          height: MediaQuery.of(context).size.height * 0.88,
-          width: MediaQuery.of(context).size.width,
+          height: size.size.height -
+              (_appbar.preferredSize.height + size.padding.top),
           padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
           alignment: Alignment.topCenter,
           child: Column(

@@ -12,6 +12,7 @@ class UserInfoScreen extends StatefulWidget {
 
 class _UserInfoScreenState extends State<UserInfoScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey();
+  AppBar _appbar = AppBar();
 
   bool _autoValidate = false;
   String _email;
@@ -46,6 +47,8 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -54,59 +57,70 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
         ),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-        child: Form(
-          key: _formKey,
-          autovalidateMode: _autoValidate
-              ? AutovalidateMode.always
-              : AutovalidateMode.disabled,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SimpleTextField(
-                onSaved: (v) => _name = v,
-                hintText: "Name:",
-                label: "Name",
-                validationError: Validator(rules: [
-                  RequiredRule(),
-                ]),
-              ),
-              SizedBox(
-                height: 12,
-              ),
-              SimpleTextField(
-                onSaved: (v) => _phone = v,
-                hintText: "Phone:",
-                label: "Phone",
-                textInputType: TextInputType.phone,
-                validationError: Validator(rules: [
-                  RequiredRule(),
-                ]),
-                inputFormatters: [
-                  FilteringTextInputFormatter.allow(RegExp('[0-9]')),
-                ],
-              ),
-              SizedBox(
-                height: 12,
-              ),
-              SimpleTextField(
-                onSaved: (v) => _email = v,
-                hintText: "Email:",
-                label: "Email",
-                textInputType: TextInputType.emailAddress,
-                validationError: Validator(rules: [
-                  EmailRule(),
-                ]),
-              ),
-              //////////////////////////////////////////////
-              SizedBox(
-                height: 40,
-              ),
-              CustomButton(
-                title: 'Proceed',
-                function: _submit,
-              ),
-            ],
+        padding: EdgeInsets.symmetric(horizontal: 16),
+        child: Container(
+          height: size.size.height -
+              (_appbar.preferredSize.height + size.padding.top),
+          child: Form(
+            key: _formKey,
+            autovalidateMode: _autoValidate
+                ? AutovalidateMode.always
+                : AutovalidateMode.disabled,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: 24,
+                ),
+                SimpleTextField(
+                  onSaved: (v) => _name = v,
+                  hintText: "Name:",
+                  label: "Name",
+                  validationError: Validator(rules: [
+                    RequiredRule(),
+                  ]),
+                ),
+                SizedBox(
+                  height: 12,
+                ),
+                SimpleTextField(
+                  onSaved: (v) => _phone = v,
+                  hintText: "Phone:",
+                  label: "Phone",
+                  textInputType: TextInputType.phone,
+                  validationError: Validator(rules: [
+                    RequiredRule(),
+                  ]),
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp('[0-9]')),
+                  ],
+                ),
+                SizedBox(
+                  height: 12,
+                ),
+                SimpleTextField(
+                  onSaved: (v) => _email = v,
+                  hintText: "Email:",
+                  label: "Email",
+                  textInputType: TextInputType.emailAddress,
+                  validationError: Validator(rules: [
+                    EmailRule(),
+                  ]),
+                ),
+                //////////////////////////////////////////////
+                SizedBox(
+                  height: 40,
+                ),
+                Spacer(),
+                CustomButton(
+                  title: 'Proceed',
+                  function: _submit,
+                ),
+                SizedBox(
+                  height: 24,
+                ),
+              ],
+            ),
           ),
         ),
       ),
