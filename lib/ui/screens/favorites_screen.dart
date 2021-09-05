@@ -20,7 +20,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
           style: Theme.of(context).appBarTheme.titleTextStyle,
         ),
       ),
-      body: GridView.builder(
+      body: productsProvider.cart.isEmpty?Center(child: Text('no favorite product added yet!'),):GridView.builder(
         padding: EdgeInsets.all(16),
         itemCount: productsProvider.favorites.length,
         itemBuilder: (context, int i) =>

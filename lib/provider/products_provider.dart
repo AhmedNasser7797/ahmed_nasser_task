@@ -47,10 +47,6 @@ class ProductsProvider with ChangeNotifier {
   List<CartModel> get cart => _cart;
 
   void addToCart(ProductModel product) {
-    for (int i = 0; i < _cart.length; i++) {
-      if (_cart[i].product.id == product.id) return;
-    }
-
     _cart.add(
       CartModel(
         product: product,
