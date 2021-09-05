@@ -1,8 +1,8 @@
 import 'dart:io';
 
 class ProductModel {
-  String id;
-  String title;
+  int id;
+  String name;
   String description;
   double price;
   double priceForSale;
@@ -15,9 +15,9 @@ class ProductModel {
     this.description,
     this.id,
     this.imageUrl,
-    this.isFavorite,
+    this.isFavorite = false,
     this.price,
-    this.title,
+    this.name,
     this.numberInStock,
     this.priceForSale,
     this.imageFile,

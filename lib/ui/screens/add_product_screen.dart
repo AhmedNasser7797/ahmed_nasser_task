@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:fiction_task/model/product_model.dart';
+import 'package:fiction_task/provider/products_provider.dart';
 import 'package:fiction_task/ui/widgets/error_pop_up.dart';
 import 'package:fiction_task/ui/widgets/red_custom_button.dart';
 import 'package:fiction_task/ui/widgets/simple_textfield.dart';
@@ -46,15 +47,27 @@ class _AddProductScreenState extends State<AddProductScreen> {
       setState(() => _autoValidate = true);
       return;
     }
-    if (_product.imageFile == null) {
+    if (_product.imageFile == null)
       return showDialog(
         context: context,
         builder: (ctx) => ErrorPopUp(message: 'please Choose Product Image!'),
       );
-    }
+    if (_product.priceForSale != null) if (_product.priceForSale >=
+        _product.price)
+      return showDialog(
+        context: context,
+        builder: (ctx) =>
+            ErrorPopUp(message: 'price for sale should less than price!'),
+      );
+
     _formKey.currentState.save();
 
-    try {} catch (e) {
+    try {
+      final productsProvider = context.read<ProductsProvider>();
+      _product.id = DateTime.now().millisecondsSinceEpoch;
+      productsProvider.addProduct(_product);
+      Navigator.pop(context);
+    } catch (e) {
       showDialog(
         context: context,
         builder: (ctx) =>
@@ -197,7 +210,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SimpleTextField(
-                      onSaved: (v) => _product.title = v,
+                      onSaved: (v) => _product.name = v,
                       hintText: "Name",
                       label: "Name",
                       validationError: Validator(rules: [
